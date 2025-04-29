@@ -13,25 +13,29 @@ namespace CheckProtectionProgra_
         public decimal SolicitarCantidad()
         {
             Console.Write("Ingrese el importe monetario del cheque: ");
+            string input = Console.ReadLine();
 
-            if (decimal.TryParse(Console.ReadLine(), out decimal cantidad))
+            decimal cantidad;
+            if (decimal.TryParse(input, out cantidad))
             {
                 return cantidad;
             }
 
-            throw new FormatException("El formato de la cantidad ingresada no es válido.");
+            throw new FormatException("El formato de la cantidad ingresada no es válida.");
         }
+
 
         public void MostrarResultado(string resultado)
         {
             Console.WriteLine("\nCheque protegido:");
             Console.WriteLine(resultado);
+            Console.WriteLine("--------");
             Console.WriteLine("12345678 (posiciones números)");
         }
 
         public void MostrarError(string mensaje)
         {
-            Console.ForegroundColor = ConsoleColor.Red;
+            //Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine($"Error: {mensaje}");
             Console.ResetColor();
         }

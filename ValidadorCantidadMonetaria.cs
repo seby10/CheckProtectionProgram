@@ -19,7 +19,6 @@ namespace CheckProtectionProgra_
                 return false;
             }
 
-            // Convertir la cantidad al formato con separador de miles para validar longitud
             string cantidadFormateada = cantidad.ToString("N2");
 
             if (cantidadFormateada.Length > espaciosDisponibles)

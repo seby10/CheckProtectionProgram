@@ -15,8 +15,8 @@ namespace CheckProtectionProgra_
 
         public ServicioProteccionCheques(IFormateador formateador, IValidador validador)
         {
-            _formateador = formateador ?? throw new ArgumentNullException(nameof(formateador));
-            _validador = validador ?? throw new ArgumentNullException(nameof(validador));
+            _formateador = formateador;
+            _validador = validador;
         }
 
         public string ProtegerCheque(decimal cantidad, int espaciosDisponibles)

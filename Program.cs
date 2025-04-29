@@ -8,33 +8,50 @@ internal class Program
     {
         const int ESPACIOS_DISPONIBLES = 8;
 
-        // Crear componentes concretos
         IFormateador formateador = new FormateadorCheque();
         IValidador validador = new ValidadorCantidadMonetaria();
         IUserInterface ui = new ConsoleUserInterface();
 
-        // Crear servicio mediante inyección de dependencias
-        ServicioProteccionCheques servicio = new ServicioProteccionCheques(formateador, validador);
+        ServicioProteccionCheques servicio = new(formateador, validador);
 
-        try
+        int opcion;
+        do
         {
+            Console.Clear();
             Console.WriteLine("Sistema de Protección de Cheques");
             Console.WriteLine("===============================\n");
+            Console.WriteLine("1. Ingresar importe del cheque");
+            Console.WriteLine("2. Salir");
+            Console.Write("\nSeleccione una opción: ");
 
-            // Solicitar cantidad al usuario
-            decimal cantidad = ui.SolicitarCantidad();
+            if (!int.TryParse(Console.ReadLine(), out opcion) || (opcion != 1 && opcion != 2))
+            {
+                Console.WriteLine("Opción no válida. Intente nuevamente.");
+                Console.ReadLine();
+                continue;
+            }
 
-            // Procesar y mostrar resultado
-            string resultadoProtegido = servicio.ProtegerCheque(cantidad, ESPACIOS_DISPONIBLES);
-            ui.MostrarResultado(resultadoProtegido);
-        }
-        catch (Exception ex)
-        {
-            ui.MostrarError(ex.Message);
-        }
+            if (opcion == 1)
+            {
+                try
+                {
+                    decimal cantidad = ui.SolicitarCantidad();
+                    string resultadoProtegido = servicio.ProtegerCheque(cantidad, ESPACIOS_DISPONIBLES);
+                    ui.MostrarResultado(resultadoProtegido);
+                }
+                catch (Exception ex)
+                {
+                    ui.MostrarError(ex.Message);
+                }
 
-        Console.WriteLine("\nPresione cualquier tecla para salir...");
-        Console.ReadKey();
+                Console.WriteLine("\nPresione Enter para continuar...");
+                Console.ReadLine();
+            }
+
+        } while (opcion != 2);
+
+        Console.WriteLine("Gracias por usar el sistema. ¡Adiós!");
     }
-    
+
+
 }
